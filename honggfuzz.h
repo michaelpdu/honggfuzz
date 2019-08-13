@@ -174,6 +174,7 @@ typedef struct {
     uint64_t pidFeedbackPc[_HF_THREAD_MAX];
     uint64_t pidFeedbackEdge[_HF_THREAD_MAX];
     uint64_t pidFeedbackCmp[_HF_THREAD_MAX];
+    uint64_t guardNb;
 } feedback_t;
 
 typedef struct {
@@ -191,6 +192,7 @@ typedef struct {
         size_t fileCnt;
         const char* fileExtn;
         bool fileCntDone;
+        size_t newUnitsAdded;
         const char* workDir;
         const char* crashDir;
         const char* covDirAll;
@@ -223,6 +225,7 @@ typedef struct {
         time_t runEndTime;
         time_t tmOut;
         time_t lastCovUpdate;
+        int64_t timeOfLongestUnitInMilliseconds;
         bool tmoutVTALRM;
     } timing;
     struct {

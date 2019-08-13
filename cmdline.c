@@ -257,6 +257,7 @@ bool cmdlineParse(int argc, char* argv[], honggfuzz_t* hfuzz) {
                 .inputDirPtr = NULL,
                 .fileCnt = 0,
                 .fileCntDone = false,
+                .newUnitsAdded = 0,
                 .fileExtn = "fuzz",
                 .workDir = NULL,
                 .crashDir = NULL,
@@ -288,8 +289,9 @@ bool cmdlineParse(int argc, char* argv[], honggfuzz_t* hfuzz) {
                 .timeStart = time(NULL),
                 .runEndTime = 0,
                 .tmOut = 10,
-                .tmoutVTALRM = false,
                 .lastCovUpdate = time(NULL),
+                .timeOfLongestUnitInMilliseconds = 0,
+                .tmoutVTALRM = false,
             },
         .mutate =
             {

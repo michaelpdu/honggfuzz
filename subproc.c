@@ -389,6 +389,11 @@ bool subproc_Run(run_t* run) {
     arch_prepareParent(run);
     arch_reapChild(run);
 
+    int64_t diffMillis = util_timeNowMillis() - run->timeStartedMillis;
+    if (diffMillis >= run->global->timing.timeOfLongestUnitInMilliseconds) {
+        run->global->timing.timeOfLongestUnitInMilliseconds = diffMillis;
+    }
+
     return true;
 }
 

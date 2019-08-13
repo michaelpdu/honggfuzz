@@ -130,12 +130,14 @@ static void fuzz_addFileToFileQ(honggfuzz_t* hfuzz, const uint8_t* data, size_t 
         LOG_E("Couldn't save the coverage data to '%s'", hfuzz->io.covDirAll);
     }
 
-    /* No need to add files to the new coverage dir, if this is just the dry-run phase */
-    if (fuzz_getState(hfuzz) == _HF_STATE_DYNAMIC_DRY_RUN || hfuzz->io.covDirNew == NULL) {
+    /* No need to add files to the new coverage dir, if it's not the main phase */
+    if (fuzz_getState(hfuzz) != _HF_STATE_DYNAMIC_MAIN) {
         return;
     }
 
-    if (!fuzz_writeCovFile(hfuzz->io.covDirNew, data, len)) {
+    hfuzz->io.newUnitsAdded++;
+
+    if (hfuzz->io.covDirNew && !fuzz_writeCovFile(hfuzz->io.covDirNew, data, len)) {
         LOG_E("Couldn't save the new coverage data to '%s'", hfuzz->io.covDirNew);
     }
 }
